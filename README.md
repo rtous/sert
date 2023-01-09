@@ -14,6 +14,8 @@ NEED: A DAC user and password plus a gateway password
 
 	cd /scratch/nas/4/rtous
 
+Check your quota with quota -s.
+
 ## 4. Create folder for the project (or obtain it from github)
 
 	git clone https://github.com/rtous/sert.git
@@ -29,11 +31,11 @@ Check available python versions:
 
 	ls /usr/bin/python*
 
-Create a virtualenv witht the desired version
+Create a virtualenv witht the desired version (--no-cache-dir is important to avoid consuming quota in your home dir):
 
 	python3.10 -m venv myvenv
 	source myvenv/bin/activate
-	pip install torch torchvision
+	pip --no-cache-dir install torch torchvision
 	deactivate
 
 ## 6. Create and script
