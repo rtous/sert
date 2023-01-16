@@ -97,19 +97,19 @@ Create a virtualenv witht the desired version (--no-cache-dir is important to av
 
 ### 7.1 CPU nodes
 
-	sbatch myjob.sh
+	sbatch example_job.sh
 
 Or node group (no one for GPUs):
 
-	sbatch --constraint=node-2017 myjob.sh
+	sbatch --constraint=node-2017 example_job.sh
 
 ### 7.2 GPU node
 
-	sbatch -A gpu -p gpu -q {cua} --gres=gpu:{nombre_gpus} myjob.sh
+	sbatch -A gpu -p gpu -q {cua} --gres=gpu:{nombre_gpus} example_job.sh
 
-Example:
+Example (pot trigar uns minuts a executar-se):
 
-	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 myjob.sh
+	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 example_job.sh
 
 Where cua:
 
@@ -123,3 +123,6 @@ Where cua:
 	scancel <jobid>
 	scontrol show node sert-2001
 
+## 9. Amb launcher (per no haver de canviar els que ja tinc)
+
+	sbatch launch.sh example_launcher_job.sh
