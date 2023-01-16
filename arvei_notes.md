@@ -1,4 +1,8 @@
-														  
+https://www.ac.upc.edu/app/wiki/serveis-tic/Clusters/Sert/FuncionamentGeneral
+https://www.ac.upc.edu/app/wiki/serveis-tic/Clusters/Sert/Caracteristiques
+https://www.ac.upc.edu/app/wiki/serveis-tic/Clusters/Users/TensorFlow
+
+												  
 # Arvei Notes
 
 ## 1. Information about the cluster:
