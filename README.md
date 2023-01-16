@@ -38,64 +38,9 @@ Create a virtualenv witht the desired version (--no-cache-dir is important to av
 	pip --no-cache-dir install torch torchvision
 	deactivate
 
-## 6. Create and script
+## 6. Launch the script
 
-	#!/bin/bash
-
-	#SBATCH --chdir=/scratch/nas/4/rtous
-
-	CSCRATCH=/scratch/nas/4/`whoami`
-
-
-
-	#!/bin/bash
-
-	PROJECT_NAME=test
-
-	CSCRATCH=/scratch/nas/4/`whoami`
-
-	#SBATCH --chdir=/scratch/nas/4/`whoami`
-
-	DATA=data.$JOB_ID
-
-	### Borrar antics logs
-	#rm $HOME/*
-
-	### Crear zona de datos local y transferir datos
-	#mkdir $DATA
-	#rsync $CSCRATCH/exSimul/data $DATA
-	# La otra opción es que la aplicación lea de $CSCRATCH
-
-	### Prepare Python virtualenv
-	CURRENT_ENVIRONMENT=`ls -d $CSCRATCH`/$PROJECT_NAME
-	source $CURRENT_ENVIRONMENT/bin/activate
-
-	### Run with all the incoming parameters
-	cd $CSCRATCH/$PROJECT_NAME/
-	INPUT=""
-	for var in "$@"
-	do
-	    INPUT=$INPUT" "$var
-	done
-	echo $INPUT
-	sh $INPUT
-	#"$1"
-
-	### Copy stdout and stderr (now in files within the execution node) outside:
-	cp $HOME/* $CSCRATCH/$PROJECT_NAME/output/
-
-	### Copiar salida (comprimida)
-	#gzip -c $DATA/output-$1-$2 > $CSCRATCH/out/output-$1-$2.gz
-
-	### Borrar zona datos local
-	rm -rf $DATA
-
-
-
-
-## 7. Launch the script
-
-### 7.1 CPU nodes
+### 6.1 CPU nodes
 
 	sbatch example_job.sh
 
@@ -103,7 +48,7 @@ Or node group (no one for GPUs):
 
 	sbatch --constraint=node-2017 example_job.sh
 
-### 7.2 GPU node
+### 6.2 GPU node
 
 	sbatch -A gpu -p gpu -q {cua} --gres=gpu:{nombre_gpus} example_job.sh
 
@@ -117,12 +62,16 @@ Where cua:
 	medium_gpu (2-4 gpus, max 2 dies)
 	small_gpu (1 gpus, max 3 dies, max 3 treballs) (default)
 
-## 8. Monitor
+## 7. Monitor
 
 	scontrol show jobid -dd <jobid>
 	scancel <jobid>
 	scontrol show node sert-2001
 
-## 9. Amb launcher (per no haver de canviar els que ja tinc)
+## 8. Amb launcher (per no haver de canviar els que ja tinc)
+
+To avoid writting cluster-like versions for all your script you can use the launch.sh script:
 
 	sbatch launch.sh example_launcher_job.sh
+
+	(la sourtida està al slurm... al punt des d'on ell llença)
