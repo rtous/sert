@@ -1,33 +1,17 @@
-!/bin/bash
-# Must launch with qsub -S /bin/bash ./noise.sh
-#!/bin/sh
-### Directivas para el gestor de colas (modificar los valores NAMEOFJOB y USERNAME, y mantener la opción "-S")
-# Cambiar el nombre del trabajo
-#$ -N NAMEOFJOB
-# Especificar un shell
-#$ -S /bin/sh
-# Enviame un correo cuando empiece el trabajo y cuando acabe...
-#$ -m be
-# ... a esta dirección de correo
-#$ -M nobody@ac.upc.edu
+#!/bin/bash
 
-CSCRATCH=/scratch/nas/4/`whoami`
-DATA=data.$JOB_ID
+#USAGE: sbatch myjob.sh example_script.sh
 
-### Borrar antics logs
-#rm $HOME/*
+PROJECT_PATH=/scratch/nas/4/rtous/sert
 
-### Crear zona de datos local y transferir datos
-#mkdir $DATA
-#rsync $CSCRATCH/exSimul/data $DATA
-# La otra opción es que la aplicación lea de $CSCRATCH
+#SBATCH --chdir=/scratch/nas/4/rtous/sert
+#SBATCH --output=/scratch/nas/4/rtous/sert/data/output/sortida-%j.out
+#SBATCH --error=/scratch/nas/4/rtous/sert/data/output/error-%j.out
 
-### Prepare Python virtualenv
-CURRENT_ENVIRONMENT=`ls -d $CSCRATCH`/deepquake_virtualenv
-source $CURRENT_ENVIRONMENT/bin/activate
+source $PROJECT_PATH/myvenv/bin/activate
 
 ### Run with all the incoming parameters
-cd $CSCRATCH/deepquake/
+#cd $PROJECT_PATH/
 INPUT=""
 for var in "$@"
 do
@@ -37,14 +21,6 @@ echo $INPUT
 sh $INPUT
 #"$1"
 
-### Copy stdout and stderr (now in files within the execution node) outside:
-cp $HOME/* $CSCRATCH/deepquake/output/
-
-### Copiar salida (comprimida)
-#gzip -c $DATA/output-$1-$2 > $CSCRATCH/out/output-$1-$2.gz
-
-### Borrar zona datos local
-rm -rf $DATA
 
 
 

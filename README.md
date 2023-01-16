@@ -40,8 +40,6 @@ Create a virtualenv witht the desired version (--no-cache-dir is important to av
 
 ## 6. Create and script
 
-
-
 	#!/bin/bash
 
 	#SBATCH --chdir=/scratch/nas/4/rtous
@@ -97,15 +95,31 @@ Create a virtualenv witht the desired version (--no-cache-dir is important to av
 
 ## 7. Launch the script
 
+### 7.1 CPU nodes
+
 	sbatch myjob.sh
 
+Or node group (no one for GPUs):
 
-	sbatch noise.sh
+	sbatch --constraint=node-2017 myjob.sh
 
-	qsub -S /bin/bash -N run_v1_step0_metadata -M YOUR_EMAI_ADDRESS -l big ./arvei/launch.sh ./scripts/step0_metadata.sh
+### 7.2 GPU node
 
-To the GPUs node:
+	sbatch -A gpu -p gpu -q {cua} --gres=gpu:{nombre_gpus} myjob.sh
 
-	sbatch --constraint=sert-2001 myjob.sh
+Example:
 
+	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 myjob.sh
+
+Where cua:
+
+	big_gpu (5-8 gpus, max 4 hores)
+	medium_gpu (2-4 gpus, max 2 dies)
+	small_gpu (1 gpus, max 3 dies, max 3 treballs) (default)
+
+## 8. Monitor
+
+	scontrol show jobid -dd <jobid>
+	scancel <jobid>
+	scontrol show node sert-2001
 

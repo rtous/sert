@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x #echo on
+#set -x #echo on (then output redirection does not work)
 
 #SBATCH --chdir=/scratch/nas/4/rtous/sert
 #SBATCH --output=/scratch/nas/4/rtous/sert/data/output/sortida-%j.out
