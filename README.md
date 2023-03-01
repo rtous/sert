@@ -16,7 +16,7 @@ NOTE: In order to be able to use the cluster you need an **username** and **pass
 
 3) Write a bash script (more info later), the *job script*, that executes an experiment (e.g. moves into the project folder, activates the python environment, runs a python command that trains a network, etc.). You can store it in your project folder. 
 
-4) Execute a cluster command (e.g. sbatch) to program the execution of your bash script. Then you can leave, the script goes into a queue waiting to be executed by one of the *compute nodes* (it can take from seconds to hours depending on the cluster state). 
+4) Execute a cluster command (e.g. sbatch) to program the execution of your job script. Then you can leave, the script goes into a queue waiting to be executed by one of the *compute nodes* (it can take from seconds to hours depending on the cluster state). 
 
 5) At some point a compute node will run your job script. The script will access your project folder (in the scratch disk), activate the virtual environment, run the python commands, etc. The logs and error messages generated during the execution will be stored in a file (e.g. slurm-33686.out). You can configure the location of this file with a directive in the job script.
 
