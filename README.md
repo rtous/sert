@@ -119,7 +119,17 @@ To cancel the job (don't do that now!):
 
 ### See the results of your job
 
-In the job script we have specified that output errors and logs will be stored into data/output (within the project folder). 
+In the job script we have specified that output errors and logs will be stored into data/output (within the project folder).
+
+### Moving data in/out the cluster
+
+Use the scp command. For example to bring a results directory from the cluster (if you are within the DAC VPN):
+
+	scp rtous@sert.ac.upc.edu:/scratch/nas/4/rtous/sert/data/output/results .
+
+If you are using the DAC gateway you can do:
+
+	scp rtous@gw.ac.upc.edu:/scratch/nas/4/rtous/sert/data/output/results .
 
 ## ANNEX. Use a "universal" job script 
 
