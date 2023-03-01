@@ -128,5 +128,3 @@ Instead of having a job script for each one of your experiments it's a good prac
 In this repo there's an example, launch.sh. It's used this way:
 
 	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 launch.sh example_launcher_job.sh
-
-You
