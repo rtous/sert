@@ -74,9 +74,8 @@ You deactivate the virtual environment as it will be activated later when a comp
 ### Create a job script that launches your program
 
 For this demo you can use example_job.sh, already in this repo:
-``
+```
 	#!/bin/bash
-	#set -x #echo on (then output redirection does not work)
 	#SBATCH --chdir=/scratch/nas/4/rtous/sert
 	#SBATCH --output=/scratch/nas/4/rtous/sert/data/output/sortida-%j.out
 	#SBATCH --error=/scratch/nas/4/rtous/sert/data/output/error-%j.out
@@ -124,13 +123,10 @@ In the job script we have specified that output errors and logs will be stored i
 
 ## ANNEX. Use a "universal" job script 
 
-Instead of having a job script for each one of your experiments it's a good practice to use a unique job script (with the cluster directives) that calls conventional bash scripts for your experiments. You still need to write the bash scripts but they are not cluster-specific, you can use them in your local environment too, this is the point.
+Instead of having a job script for each one of your experiments it's a good practice to use a unique job script (with the cluster directives) that calls conventional bash scripts for your experiments. You still need to write the bash scripts but they are not cluster-specific, you can use them in your local environment too, this is the point. 
 
-	
-## 8. Amb launcher (per no haver de canviar els que ja tinc)
+In this repo there's an example, launch.sh. It's used this way:
 
-To avoid writting cluster-like versions for all your script you can use the launch.sh script:
+	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 launch.sh example_launcher_job.sh
 
-	sbatch launch.sh example_launcher_job.sh
-
-	(la sourtida està al slurm... al punt des d'on ell llença)
+You
