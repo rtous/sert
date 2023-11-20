@@ -25,20 +25,26 @@ NOTE: In order to be able to use the cluster you need an **username** and **pass
 ### Enter the DAC network 
 
 In order to access the cluster you need to be within the DAC network. You can get there throught:
-	- [DAC VPN](https://www.ac.upc.edu/app/wiki/serveis-tic/Gateway/VPN)
-	- [DAC gateway](https://www.ac.upc.edu/app/wiki/serveis-tic/Gateway/SSH)
 
-For instance, you can enter the gateway typing (replace 'rtous' with your username) i the terminal:
+- [DAC VPN](https://www.ac.upc.edu/app/wiki/serveis-tic/Gateway/VPN)
+- [DAC gateway](https://www.ac.upc.edu/app/wiki/serveis-tic/Gateway/SSH)
+
+For instance, you can enter the gateway typing (replace 'rtous' with your username) in the terminal:
 
 	ssh rtous@gw.ac.upc.edu 
 
-### Enter the cluster
+Type return to accept both default options (SERT cluster, your user). You will enter one of the *entry nodes* of the cluster. 
+
+Initially you can see your home folder (it's a network folder so you can see it from any node of the DAC network, also the *entry nodes* of the SERT cluster). You can trust that what is in this folder will be preserved but be careful as you do not have much space available in it. You won't have your projects here.
+
+<!-- ### Enter the cluster
 
 From within the DAC network you access the cluster with:
 
 	ssh sert 
 
-You will be within one of the *entry nodes* of the cluster. From there you can also see the scratch disk and your project folder. 
+You will enter one of the *entry nodes* of the cluster. From there you can also see the scratch disk and your project folder.-->
+
 
 ### Prepare a project folder in the shared scratch disk
 
@@ -46,9 +52,16 @@ Move to your scratch zone (use the proper path for your user):
 
 	cd /scratch/nas/4/rtous
 
-Check your quota with quota -s.
+Check your quota (space = currently used, quota = limit). You should have more than 20G, ideally 100G, otherwise ask for more to suport.tic.ac@upc.edu.
 
-Create folder for the project (or obtain it from github). For this demo directly use:
+	quota -s
+
+Create a tmp folder in your scratch area and set the TMPDIR properly (otherwise temporary files would consume quota in your home dir and you will run out of space easily):
+
+	mkdir /scratch/nas/4/rtous/tmp
+	export TMPDIR=/scratch/nas/4/rtous/tmp
+
+Create a folder for the project (or obtain it from github). For this demo directly use:
 
 	git clone https://github.com/rtous/sert.git
 	cd sert
@@ -61,10 +74,13 @@ Check available python versions:
 
 	ls /usr/bin/python*
 
-Create a virtualenv with the desired version (--no-cache-dir is **important** to avoid consuming quota in your home dir):
+Create and activate a virtualenv with the desired version:
 
 	python3.10 -m venv myvenv
 	source myvenv/bin/activate
+
+Install pytorch (--no-cache-dir is **important** to avoid consuming quota in your home dir):
+
 	pip --no-cache-dir install torch torchvision
 	deactivate
 	mkdir -p data/output
