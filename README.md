@@ -177,25 +177,3 @@ Instead of having a job script for each one of your experiments it's a good prac
 In this repo there's an example, launch.sh. It's used this way:
 
 	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 launch.sh example_launcher_job.sh
-
-## ANNEX. Interactive mode
-
-To interactively access the node with GPUs, run the following command:
-
-	srun -A gpu -p gpu --gres=gpu:1 --pty /bin/bash
-
-Check GPUs
-
-	nvidia-smi
-
-
-
-
-
-rtous@sert-2001:/scratch/nas/4/rtous$ pip index versions torch
-WARNING: pip index is currently an experimental command. It may be removed/changed in a future release without prior warning.
-torch (2.5.1)
-Available versions: 2.5.1, 2.5.0, 2.4.1, 2.4.0, 2.3.1, 2.3.0, 2.2.2, 2.2.1, 2.2.0, 2.1.2, 2.1.1, 2.1.0, 2.0.1, 2.0.0, 1.13.1, 1.13.0, 1.12.1, 1.12.0, 1.11.0
-  INSTALLED: 1.8.0a0+unknown
-  LATEST:    2.5.1
-rtous@sert-2001:/scratch/nas/4/rtous$ 
