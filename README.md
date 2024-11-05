@@ -114,12 +114,12 @@ This program has no errors but the idea is that you use the interactive node to 
 
 For this demo you can use example_job.sh, already in this repo:
 ```
-	#!/bin/bash
-	#SBATCH --chdir=/scratch/nas/4/rtous/sert
-	#SBATCH --output=/scratch/nas/4/rtous/sert/data/output/sortida-%j.out
-	#SBATCH --error=/scratch/nas/4/rtous/sert/data/output/error-%j.out
-	source /scratch/nas/4/rtous/sert/myvenv/bin/activate	
-	python cuda.py
+#!/bin/bash
+#SBATCH --chdir=/scratch/nas/4/rtous/sert
+#SBATCH --output=/scratch/nas/4/rtous/sert/data/output/sortida-%j.out
+#SBATCH --error=/scratch/nas/4/rtous/sert/data/output/error-%j.out
+source /scratch/nas/4/rtous/sert/myvenv/bin/activate	
+python cuda.py
 ```
 
 The script combines conventional commands with cluster directives. The demo script runs a python program that checks if pytorch can use the GPU.
