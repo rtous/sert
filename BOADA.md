@@ -2,9 +2,9 @@
 
 ## Introduction 
 
-SERT is a research cluster of the Department of Computer Architecture (DAC) of the UPC. It replaces the old ARVEI (sometimes this name is used in the docs). 
+BOADA is a cluster of the Department of Computer Architecture (DAC) of the UPC. 
 
-This repo provides help running experiments on the GPU nodes of the SERT cluster. You can go directly to the [official docs](https://www.ac.upc.edu/app/wiki/serveis-tic/Clusters/Users) instead.
+This repo provides help running experiments on the GPU nodes of the BOADA cluster. You can go directly to the [official docs](https://www.ac.upc.edu/app/wiki/serveis-tic/Clusters/Users) instead. There's a [doc for the GPU nodes](https://www.ac.upc.edu/app/wiki/serveis-tic/Clusters/Users/UsGPUs).
 
 NOTE: In order to be able to use the cluster you need an **username** and **password** provided by your project supervisor. 
 
@@ -33,7 +33,7 @@ For instance, you can enter the gateway typing (replace 'rtous' with your userna
 
 	ssh rtous@gw.ac.upc.edu 
 
-Type return to accept both default options (SERT cluster, your user). You will enter one of the *entry nodes* of the cluster. 
+When it asks for the cluster type "boada" to change the default cluster (by default it enters SERT, the general Department cluster). Then type return to accept your user as it is.
 
 Initially you can see your home folder (it's a network folder so you can see it from any node of the DAC network, also the *entry nodes* of the SERT cluster). You can trust that what is in this folder will be preserved but be careful as you do not have much space available in it. You won't have your projects here.
 
@@ -86,29 +86,6 @@ Install pytorch (--no-cache-dir is **important** to avoid consuming quota in you
 	mkdir -p data/output
 
 You deactivate the virtual environment as it will be activated later when a compute node will run the job script.
-
-### Test first the code in an interactive node
-
-Without changing the directory (/scratch/nas/4/rtous/sert) enter an interactive node (with GPU):
-
-	srun -A gpu -p gpu --gres=gpu:1 --pty /bin/bash
-
-(optional) Once there you can get info about the GPUs this way:
-
-	nvidia-smi
-
-Activate the virtualenv:
-
-	source myvenv/bin/activate
-
-Run the test program:
-
-	python cuda.py
-
-This program has no errors but the idea is that you use the interactive node to debug the errors before launching the job to the queue (you can just stay a limited time within the interactive node). Once you finished debugging the errors let's exit the interactive node:
-
-	exit
-
 
 ### Create a job script that launches your program
 
@@ -177,25 +154,3 @@ Instead of having a job script for each one of your experiments it's a good prac
 In this repo there's an example, launch.sh. It's used this way:
 
 	sbatch -A gpu -p gpu -q small_gpu --gres=gpu:1 launch.sh example_launcher_job.sh
-
-## ANNEX. Interactive mode
-
-To interactively access the node with GPUs, run the following command:
-
-	srun -A gpu -p gpu --gres=gpu:1 --pty /bin/bash
-
-Check GPUs
-
-	nvidia-smi
-
-
-
-
-
-rtous@sert-2001:/scratch/nas/4/rtous$ pip index versions torch
-WARNING: pip index is currently an experimental command. It may be removed/changed in a future release without prior warning.
-torch (2.5.1)
-Available versions: 2.5.1, 2.5.0, 2.4.1, 2.4.0, 2.3.1, 2.3.0, 2.2.2, 2.2.1, 2.2.0, 2.1.2, 2.1.1, 2.1.0, 2.0.1, 2.0.0, 1.13.1, 1.13.0, 1.12.1, 1.12.0, 1.11.0
-  INSTALLED: 1.8.0a0+unknown
-  LATEST:    2.5.1
-rtous@sert-2001:/scratch/nas/4/rtous$ 
